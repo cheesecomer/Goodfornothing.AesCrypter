@@ -1,0 +1,165 @@
+﻿<Window x:Class="Goodfornothing.AesCrypter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local_data="clr-namespace:Goodfornothing.AesCrypter.Data"
+        xmlns:local_componentmodel="clr-namespace:Goodfornothing.AesCrypter.ComponentModel"
+        IsEnabled="{Binding CanUserOperation}"
+        Title="AesCrypter" Height="562" Width="757">
+    <Window.Resources>
+        <local_data:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <local_data:BooleanTurnOverConverter x:Key="BooleanTurnOverConverter" />
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="入力モード" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <RadioButton Content="パスワード" Grid.Column="3" VerticalAlignment="Center" IsChecked="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Password}}" />
+            <RadioButton Content="鍵値" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Key}}" />
+        </Grid>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Text="パスワード" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Password}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Key}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}"/>
+        
+        <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Text="パスワードソルト" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding PasswordSalt}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Key}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Text="鍵値" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="6" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding KeyValue}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Password}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}" />
+            <ComboBox Grid.Column="2" ItemsSource="{Binding EncodeTypes}" SelectedItem="{Binding KeyEncodeType}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Password}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}" />
+        </Grid>
+
+        <TextBlock Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Text="IV" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="8" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding IV}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Password}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}"/>
+            <ComboBox Grid.Column="2" ItemsSource="{Binding EncodeTypes}" SelectedItem="{Binding IvEncodeType}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Password}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}" />
+        </Grid>
+
+        <TextBlock Grid.Column="0" Grid.Row="10" Text="暗号化モード" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox Grid.Column="3" Grid.Row="10" SelectedItem="{Binding CipherMode}" ItemsSource="{Binding CipherModes}" />
+
+        <TextBlock Grid.Column="0" Grid.Row="12" Text="埋め込みモード" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox Grid.Column="3" Grid.Row="12" SelectedItem="{Binding PaddingMode}" ItemsSource="{Binding PaddingModes}" />
+
+        <TextBlock Grid.Column="0" Grid.Row="14" HorizontalAlignment="Left" Text="KeySize" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" Grid.Row="14" Text="{Binding KeySize}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Key}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Text="BlockSize" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" Grid.Row="16" Text="{Binding BlockSize}" IsReadOnly="{Binding Path=InpuMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:InpuMode.Key}}" IsEnabled="{Binding Path=IsReadOnly, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BooleanTurnOverConverter}}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="18" Text="対象モード" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <RadioButton Content="ファイル" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Path=TargetType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:TargetType.File}}" />
+            <RadioButton Content="ディレクトリ" Grid.Column="3" VerticalAlignment="Center" IsChecked="{Binding Path=TargetType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:TargetType.Directory}}" />
+            <RadioButton Content="文字列" Grid.Column="5" VerticalAlignment="Center" IsChecked="{Binding Path=TargetType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:TargetType.String}}" />
+        </Grid>
+
+        <TextBlock Grid.Column="0" Grid.Row="20" Text="暗号化文字列形式" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="20" IsEnabled="{Binding Path=TargetType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:TargetType.String}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <RadioButton Content="UTF-8" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Path=OutputEncodeType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:EncodeType.UTF8}}" />
+            <RadioButton Content="Base64" Grid.Column="3" VerticalAlignment="Center" IsChecked="{Binding Path=OutputEncodeType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:EncodeType.Base64}}" />
+            <RadioButton Content="Binary" Grid.Column="5" VerticalAlignment="Center" IsChecked="{Binding Path=OutputEncodeType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local_componentmodel:EncodeType.Binary}}" />
+        </Grid>
+
+        <TextBlock Grid.Row="22" HorizontalAlignment="Left" Text="平文（復号）データ" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="22" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Decrypt}" />
+            <Button Grid.Column="2" Content="参照" Command="{Binding DecryptReferenceCommand}" />
+        </Grid>
+
+        <TextBlock Grid.Row="24" HorizontalAlignment="Left" Text="暗号化データ" VerticalAlignment="Center" />
+        <Grid Grid.Column="2" Grid.Row="24" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Encrypt}" />
+            <Button Grid.Column="2" Content="参照" Command="{Binding EncryptReferenceCommand}" />
+        </Grid>
+
+        <Grid Grid.ColumnSpan="3" Grid.Row="26">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Content="暗号化" Command="{Binding EncryptCommand}" Grid.Column="1" />
+            <Button Content="復号" Command="{Binding DecryptCommand}" Grid.Column="3" />
+        </Grid>
+    </Grid>
+</Window>
